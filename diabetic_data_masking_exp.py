@@ -296,7 +296,7 @@ emergency_col = ColumnToText(
     value_map=lambda x: f"{x} visits"
 )
 
-emergency_col = ColumnToText(
+inpatient_col = ColumnToText(
     "number_inpatient",
     short_description="Number of inpatient visits of the patient in the year preceding the encounter",
     value_map=lambda x: f"{x} visits"

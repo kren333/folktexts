@@ -268,7 +268,7 @@ emergency_col = ColumnToText(
     value_map=lambda x: f"{x} visits"
 )
 
-emergency_col = ColumnToText(
+inpatient_col = ColumnToText(
     "number_inpatient",
     short_description="Number of inpatient visits of the patient in the year preceding the encounter",
     value_map=lambda x: f"{x} visits"
@@ -755,7 +755,7 @@ import os
 import json
 with open("secrets.txt", "r") as handle:
     os.environ["OPENAI_API_KEY"] = json.load("secrets.txt")["open_ai_key"]
-    
+
 for taskname in all_tasks:
     task, dataset = all_tasks[taskname]
     llm_clf = WebAPILLMClassifier(model_name=model_name, task=task)
