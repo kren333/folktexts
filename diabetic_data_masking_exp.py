@@ -622,7 +622,6 @@ if __name__ == "__main__":
 
     discretize_cols = ["time_in_hospital", "number_diagnoses", "num_lab_procedures",
                         "num_medications"] # numerical cols; need to convert into quartiles
-    imbalanced_cols = ["num_procedures", "number_outpatient", "number_emergency", "number_inpatient"] # numerical, but also one option dominates so we need to make a binary classification
     all_columns_map: dict[str, object] = {
         col_mapper.name: col_mapper
         for col_mapper in globals().values()
