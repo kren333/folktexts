@@ -42,11 +42,12 @@ def encode_row_prompt(
     task: TaskMetadata,
     question: QAInterface = None,
     custom_prompt_prefix: str = None,
-    add_task_description: bool = True,
+    add_task_description: bool = False,
 ) -> str:
     """Encode a question regarding a given row."""
     # Get the question to ask
     question = question or task.question
+    # import pdb; pdb.set_trace()
     return (
         (ACS_TASK_DESCRIPTION + "\n" if add_task_description else "")
         + (f"\n{custom_prompt_prefix}\n" if custom_prompt_prefix else "")

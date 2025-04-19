@@ -84,9 +84,11 @@ class LLMClassifier(BaseEstimator, ClassifierMixin, ABC):
         self._custom_prompt_prefix = custom_prompt_prefix
 
         # TODO: Add default custom_prompt_prefix to row encoder here?
+        # import pdb; pdb.set_trace()
         self._encode_row = encode_row or partial(
             default_encode_row_prompt,
             task=self.task,
+            custom_prompt_prefix=custom_prompt_prefix
         )
 
         self._threshold = threshold
