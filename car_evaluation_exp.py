@@ -196,6 +196,7 @@ reentry_task = TaskMetadata(
 
 car_evaluation = fetch_ucirepo(id=19) 
 data = car_evaluation.data.original
+# data.to_csv("uci-car_evaluation.csv", index=False)
 # The class columns is categorical, use a numeric one for the numeric QA
 class_to_int = {
     "unacc": 0,
@@ -234,7 +235,10 @@ os.environ["OPENAI_API_KEY"] = secrets["open_ai_key"]
     
 for taskname in all_tasks:
     task, dataset = all_tasks[taskname]
-    llm_clf = WebAPILLMClassifier(model_name=model_name, task=task)
+    llm_clf = WebAPILLMClassifier(
+        model_name=model_name, 
+        task=task,
+        custom_prompt_prefix=TASK_DESCRIPTION)
     llm_clf.set_inference_kwargs(batch_size=500)
     bench = Benchmark(llm_clf=llm_clf, dataset=dataset)
 

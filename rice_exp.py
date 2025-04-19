@@ -120,6 +120,7 @@ reentry_task = TaskMetadata(
 # fetch dataset 
 rice_cammeo_and_osmancik = fetch_ucirepo(id=545) 
 data = rice_cammeo_and_osmancik.data.original
+# data.to_csv("uci-rice.csv", index=False)
 class_to_int = {
     "Cammeo": 0,
     "Osmancik": 1
@@ -152,7 +153,10 @@ os.environ["OPENAI_API_KEY"] = secrets["open_ai_key"]
     
 for taskname in all_tasks:
     task, dataset = all_tasks[taskname]
-    llm_clf = WebAPILLMClassifier(model_name=model_name, task=task)
+    llm_clf = WebAPILLMClassifier(
+        model_name=model_name, 
+        task=task,
+        custom_prompt_prefix=TASK_DESCRIPTION)
     llm_clf.set_inference_kwargs(batch_size=500)
     bench = Benchmark(llm_clf=llm_clf, dataset=dataset)
 

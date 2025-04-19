@@ -312,6 +312,7 @@ reentry_task = TaskMetadata(
 # fetch dataset 
 glioma_grading_clinical_and_mutation_features = fetch_ucirepo(id=759) 
 data = glioma_grading_clinical_and_mutation_features.data.original
+# data.to_csv("uci-glioma_grading.csv", index=False)
 # Define reverse mapping
 race_reverse_map = {
     "white": 0,
@@ -350,7 +351,10 @@ os.environ["OPENAI_API_KEY"] = secrets["open_ai_key"]
     
 for taskname in all_tasks:
     task, dataset = all_tasks[taskname]
-    llm_clf = WebAPILLMClassifier(model_name=model_name, task=task)
+    llm_clf = WebAPILLMClassifier(
+        model_name=model_name, 
+        task=task,
+        custom_prompt_prefix=TASK_DESCRIPTION)
     llm_clf.set_inference_kwargs(batch_size=500)
     bench = Benchmark(llm_clf=llm_clf, dataset=dataset)
 

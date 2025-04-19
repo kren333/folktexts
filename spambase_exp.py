@@ -437,6 +437,7 @@ reentry_task = TaskMetadata(
 # fetch dataset 
 spambase = fetch_ucirepo(id=94) 
 data = spambase.data.original
+# data.to_csv("uci-spambase.csv", index=False)
 # num_data = len(data)
 # # we want to sample 10k
 # subsampling = 5000 / num_data
@@ -463,7 +464,11 @@ os.environ["OPENAI_API_KEY"] = secrets["open_ai_key"]
     
 for taskname in all_tasks:
     task, dataset = all_tasks[taskname]
-    llm_clf = WebAPILLMClassifier(model_name=model_name, task=task)
+    llm_clf = WebAPILLMClassifier(
+        model_name=model_name, 
+        task=task,
+        custom_prompt_prefix=TASK_DESCRIPTION
+        )
     llm_clf.set_inference_kwargs(batch_size=500)
     bench = Benchmark(llm_clf=llm_clf, dataset=dataset)
 
