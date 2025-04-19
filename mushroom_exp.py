@@ -403,6 +403,7 @@ reentry_task = TaskMetadata(
 # fetch dataset 
 mushroom = fetch_ucirepo(id=73) 
 data = mushroom.data.original
+# data.to_csv("uci-mushroom.csv", index=False)
 class_to_int = {
     "e": 0,
     "p": 1
@@ -438,7 +439,9 @@ os.environ["OPENAI_API_KEY"] = secrets["open_ai_key"]
     
 for taskname in all_tasks:
     task, dataset = all_tasks[taskname]
-    llm_clf = WebAPILLMClassifier(model_name=model_name, task=task)
+    llm_clf = WebAPILLMClassifier(model_name=model_name, 
+                                  task=task, 
+                                  custom_prompt_prefix=TASK_DESCRIPTION)    
     llm_clf.set_inference_kwargs(batch_size=500)
     bench = Benchmark(llm_clf=llm_clf, dataset=dataset)
 
