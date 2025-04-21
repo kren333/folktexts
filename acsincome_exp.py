@@ -11,8 +11,6 @@ from folktexts.benchmark import BenchmarkConfig, Benchmark
 from folktexts.dataset import Dataset
 import os
 
-# os.chdir('/users/bryanwilder/Dropbox/llm_preds')
-
 
 TASK_DESCRIPTION = """\
 The following data corresponds to US Census data on US residents. \
@@ -251,216 +249,6 @@ income_col = ColumnToText(
     }
 )
 
-# disability_col = ColumnToText(
-#     "DIS",
-#     short_description="disability status",
-#     value_map={
-#         1: "With a disability",
-#         2: "Without a disability"
-#     }
-# )
-
-# parent_col = ColumnToText(
-#     "ESP",
-#     short_description="employment status of parents",
-#     value_map={
-#         8: "Living with mother: Mother not in labor force",
-#         0: "N/A (not own child of householder, and not child in subfamily)",
-#         2: "Living with two parents: Father only in labor force",
-#         5: "Living with father: Father in the labor force",
-#         4: "Living with two parents: Neither parent in labor force",
-#         7: "Living with mother: Mother in the labor force",
-#         6: "Living with father: Father not in labor force",
-#         1: "Living with two parents: Both parents in labor force",
-#         3: "Living with two parents: Mother only in labor force"
-#     }
-# )
-
-# citizen_col = ColumnToText(
-#     "CIT",
-#     short_description="citizenship status",
-#     value_map={
-#         3: "Born abroad of American parent(s)",
-#         2: "Born in Puerto Rico, Guam, the U.S. Virgin Islands, or the Northern Marianas",
-#         4: "U.S. citizen by naturalization",
-#         1: "Born in the U.S.",
-#         5: "Not a citizen of the U.S."
-#     }
-# )
-
-# mobility_col = ColumnToText(
-#     "MIG",
-#     short_description="mobility status (lived here 1 year ago)",
-#     value_map={
-#         2: "No, outside US and Puerto Rico",
-#         3: "No, different house in US or Puerto Rico",
-#         1: "Yes, same house (nonmovers)",
-#         0: "N/A(less than 1 year old)"        
-#     }
-# )
-
-# military_col = ColumnToText(
-#     "MIL",
-#     short_description="military service",
-#     value_map={
-#         0: "N/A (less than 17 years old)",
-#         1: "Now on active duty",
-#         4: "Never served in the military",
-#         2: "On active duty in the past, but not now",
-#         3: "Only on active duty for training in Reserves/National Guard"        
-#     }
-# )
-
-# ancestry_col = ColumnToText(
-#     "ANC",
-#     short_description="number ancestries reported",
-#     value_map={
-#         4: "Not reported",
-#         8: "Suppressed for data year 2018 for select PUMAs",
-#         3: "Unclassified",
-#         2: "Multiple",
-#         1: "Single"
-#     }
-# )
-
-# nativity_col = ColumnToText(
-#     "NATIVITY",
-#     short_description="nativity for US",
-#     value_map={
-#         2: "Foreign born",
-#         1: "Native"        
-#     }
-# )
-
-# hearing_col = ColumnToText(
-#     "DEAR",
-#     short_description="hearing difficulty",
-#     value_map={
-#         2: "No",
-#         1: "Yes"        
-#     }
-# )
-
-# eye_col = ColumnToText(
-#     "DEYE",
-#     short_description="vision difficulty",
-#     value_map={
-#         2: "No",
-#         1: "Yes"        
-#     }
-# )
-
-# cognitive_col = ColumnToText(
-#     "DREM",
-#     short_description="cognitive difficulty",
-#     value_map={
-#         2: "No",
-#         1: "Yes",
-#         0: "N/A (less than 5 years old)",
-#     }
-# )
-
-# employment_col = ColumnToText(
-#     "ESR",
-#     short_description="employment status",
-#     value_map={
-#         1: "employed",
-#         0: "not employed"
-#     }
-# )
-
-# acdhs_race_col = ColumnToText(
-#     "RACE",
-#     short_description="race",
-#     value_map={
-#         '1~White': "White",
-#         '2~Black/African American': "Black",
-#         '4~Asian': "Asian",
-#         '3~American Indian/Alaskan Native': "Native American",
-#         '7~Other Single Race': "Other (Single Race)",
-#         '5~Native Hawaiian/Pacific Islander': "Pacific Islander",
-#         '6~Two or More Races': "Two or More Races",
-#         '99~Unknown': "Unknown",
-#     },
-# )
-
-
-# acdhs_bh_ever_col = ColumnToText(
-#     "BH_DIAGNOSIS_EVER_DUMMY",
-#     short_description="indicator for any previous behavioral health diagnosis",
-#     value_map={
-#         0: "No",
-#         1: "Yes",
-#     },
-# )
-
-
-# acdhs_bh_inpatient_col = ColumnToText(
-#     "BH_INPATIENT_REHAB_DAYS_CT_3_YEARS",
-#     short_description="days spent in inpatient behavioral health rehabilitation in the last 3 years",
-#     value_map=lambda x: f"{int(x)} days",
-# )
-
-# acdhs_acj_months_col = ColumnToText(
-#     "ACJ_MONTHS_CT_3_YEARS",
-#     short_description="months spent in jail in the last three years",
-#     value_map=lambda x: f"{int(x)} months",
-# )
-
-# acdhs_court_all_col = ColumnToText(
-#     "COURT_ALL_CT_EVER",
-#     short_description="number of previous court appearances",
-#     value_map=lambda x: f"{int(x)}",
-# )
-
-# acdhs_probation_col = ColumnToText(
-#     "COURT_PROBATION_CT_2_YEARS",
-#     short_description="number of times on probation in the last two years",
-#     value_map=lambda x: f"{int(x)}",
-# )
-
-# acdhs_bh_count_col = ColumnToText(
-#     "BH_ALL_SERVICES_CT",
-#     short_description="number of behavioral health services previously received:",
-#     value_map=lambda x: f"{int(x)}",
-# )
-
-# acdhs_housing_count_col = ColumnToText(
-#     "HOUSING_ALL_SERVICES_CT",
-#     short_description="number of housing services previously received:",
-#     value_map=lambda x: f"{int(x)}",
-# )
-
-# acdhs_shelter_count_col = ColumnToText(
-#     "HOUS_SHELTER_EE_DAYS_1YR",
-#     short_description="number of days spent in homeless shelters in the last year:",
-#     value_map=lambda x: f"{int(x)}",
-# )
-
-# acdhs_jailstays_col = ColumnToText(
-#     "N_JAILSTAYS_LAST_YEAR",
-#     short_description="number of stays in jail in the last year:",
-#     value_map=lambda x: f"{int(x)}",
-# )
-
-# acdhs_out_da_count_col = ColumnToText(
-#     "BH_OUTPT_DRUG_ALC_DAYS_CT_EVER",
-#     short_description="number of days previously spent in outpatient drug and alcohol treatment:",
-#     value_map=lambda x: f"{int(x)}",
-# )
-
-# acdhs_bh_emergency_count_col = ColumnToText(
-#     "BH_EMEGCY_MNTL_CT_EVER",
-#     short_description="number of previous behavioral health emergency visits:",
-#     value_map=lambda x: f"{int(x)}",
-# )
-
-# acdhs_bh_inpatient_count_col = ColumnToText(
-#     "BH_INPT_MNTL_CT_EVER",
-#     short_description="number of previous behavioral health inpatient visits:",
-#     value_map=lambda x: f"{int(x)}",
-# )
-
 
 
 reentry_numeric_qa = DirectNumericQA(
@@ -480,79 +268,7 @@ reentry_qa = MultipleChoiceQA(
     ),
 )
 
-# shelter_qa = MultipleChoiceQA(
-#     column='EMERG_SHLTR',
-#     text="Will this person use a homeless shelter in the next year?",
-#     choices=(
-#         Choice("Yes, they will use a homeless shelter in the next year", 1),
-#         Choice("No, they will not use a homeless shelter in the next year", 0),
-#     ),
-# )
 
-# shelter_numeric_qa = DirectNumericQA(
-#     column='ONE_YEAR_SHELTER',
-#     text=(
-#         "Will this person use a homeless shelter in the next year?"
-#     ),
-# )
-
-# mhip_qa = MultipleChoiceQA(
-#     column='MHIP',
-#     text="Will this person have inpatient mental health treatment in the next year?",
-#     choices=(
-#         Choice("Yes, they will have inpatient mental health treatment in the next year", 1),
-#         Choice("No, they will not have inpatient mental health treatment in the next year", 0),
-#     ),
-# )
-
-# mhip_numeric_qa = DirectNumericQA(
-#     column='MHIP',
-#     text=(
-#         "Will this person have inpatient mental health treatment in the next year?"
-#     ),
-# )
-
-# ed_qa = MultipleChoiceQA(
-#     column='FOUR_ER',
-#     text="Will this person have at least four emergency department visits in the next year?",
-#     choices=(
-#         Choice("Yes, they will have at least four emergency department visits in the next year", 1),
-#         Choice("No, they will not have at least four emergency department visits in the next year", 0),
-#     ),
-# )
-
-# ed_numeric_qa = DirectNumericQA(
-#     column='FOUR_ER',
-#     text=(
-#         "Will this person have at least four emergency department visits in the next year?"
-#     ),
-# )
-
-
-
-# reentry_outcome_col = ColumnToText(
-#     'JAIL',
-#     short_description="reentry within one year",
-#     question=reentry_qa,
-# )
-
-# shelter_outcome_col = ColumnToText(
-#     'EMERG_SHLTR',
-#     short_description="shelter useage within one year",
-#     question=shelter_qa,
-# )
-
-# invol_outcome_col = ColumnToText(
-#     'MHIP',
-#     short_description="inpatient mental health treatment within one year",
-#     question=mhip_qa,
-# )
-
-# mortality_outcome_col = ColumnToText(
-#     'FOUR_ER',
-#     short_description="at least four emergency department visits within one year",
-#     question=ed_qa,
-# )
 
 
 columns_map: dict[str, object] = {
@@ -561,8 +277,6 @@ columns_map: dict[str, object] = {
     if isinstance(col_mapper, ColumnToText)
 }
 
-
-# all_outcomes = ['JAIL', 'FOUR_ER', 'EMERG_SHLTR', 'MHIP']
 all_outcomes = ["PINCP"]
 
 reentry_task = TaskMetadata(
@@ -576,50 +290,12 @@ reentry_task = TaskMetadata(
     direct_numeric_qa=reentry_numeric_qa,
 )
 
-# shelter_task = TaskMetadata(
-#     name="shelter prediction",
-#     description=TASK_DESCRIPTION,
-#     features=[x for x in columns_map.keys() if x not in all_outcomes],
-#     target='EMERG_SHLTR',
-#     cols_to_text=columns_map,
-#     sensitive_attribute=None,
-#     multiple_choice_qa=reentry_qa,
-#     direct_numeric_qa=reentry_numeric_qa,
-# )
-
-# mhip_task = TaskMetadata(
-#     name="mental health inpatient prediction",
-#     description=TASK_DESCRIPTION,
-#     features=[x for x in columns_map.keys() if x not in all_outcomes],
-#     target='MHIP',
-#     cols_to_text=columns_map,
-#     sensitive_attribute=None,
-#     multiple_choice_qa=mhip_qa,
-#     direct_numeric_qa=mhip_numeric_qa,
-# )
-
-# ed_task = TaskMetadata(
-#     name="emergency department prediction",
-#     description=TASK_DESCRIPTION,
-#     features=[x for x in columns_map.keys() if x not in all_outcomes],
-#     target='FOUR_ER',
-#     cols_to_text=columns_map,
-#     sensitive_attribute=None,
-#     multiple_choice_qa=ed_qa,
-#     direct_numeric_qa=ed_numeric_qa,
-# )
-
-# shelter_task.use_numeric_qa = False
-# reentry_task.use_numeric_qa = False
-# mhip_task.use_numeric_qa = False
-# ed_task.use_numeric_qa = False
-
 
 
 data = pd.read_csv("data/acsincome_classification.csv")
 num_data = len(data)
 # we want to sample 10k
-subsampling = 50000 / num_data
+subsampling = 5000 / num_data
 
 reentry_dataset = Dataset(
     data=data,
@@ -630,8 +306,6 @@ reentry_dataset = Dataset(
 )
 
 
-
-
 all_tasks = {
     "reentry": [reentry_task, reentry_dataset]
 }
@@ -640,21 +314,15 @@ all_tasks = {
 model_name = "openai/gpt-4o-mini"
 import os
 import json
-with open("secrets.txt", "r") as handle:
-    os.environ["OPENAI_API_KEY"] = json.load("secrets.txt")["open_ai_key"]
+with open("secrets.json", "r") as handle:
+    os.environ["OPENAI_API_KEY"] = json.load(handle)["open_ai_key"]
 
 for taskname in all_tasks:
     task, dataset = all_tasks[taskname]
-    llm_clf = WebAPILLMClassifier(model_name=model_name, task=task)
+    llm_clf = WebAPILLMClassifier(model_name=model_name, task=task, custom_prompt_prefix=TASK_DESCRIPTION)  
     llm_clf.set_inference_kwargs(batch_size=500)
     bench = Benchmark(llm_clf=llm_clf, dataset=dataset)
 
     RESULTS_DIR = "acsincome"
     bench.run(results_root_dir=RESULTS_DIR)
 
-
-
-# llm_clf = WebAPILLMClassifier(model_name=model_name, task=shelter_task)
-# bench = Benchmark(llm_clf=llm_clf, dataset=shelter_dataset)
-# RESULTS_DIR = "res_shelter"
-# bench.run(results_root_dir=RESULTS_DIR)

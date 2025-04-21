@@ -10,8 +10,6 @@ from folktexts.benchmark import BenchmarkConfig, Benchmark
 from folktexts.dataset import Dataset
 import os
 
-# os.chdir('/users/bryanwilder/Dropbox/llm_preds')
-
 
 TASK_DESCRIPTION = """\
 The following data corresponds to US Census data on US residents, under the age of 65, with an income of less than $30,000, and not eligible for Medicare. \
@@ -202,23 +200,6 @@ pubcov_col = ColumnToText(
     }
 )
 
-# cow_col = ColumnToText(
-#     "COW",
-#     short_description="class of worker",
-#     value_map={
-#         9: "Unemployed and last worked 5 years ago or earlier or never worked",
-#         1: "Employee of a private for-profit company or business, or of an individual, for wages, salary, or commissions",
-#         7: "Self-employed in own incorporated business, professional practice or farm",
-#         8: "Working without pay in family business or farm",
-#         3: "Local government employee (city, county, etc.)",
-#         6: "Self-employed in own not incorporated business, professional practice, or farm",
-#         4: "State government employee",
-#         5: "Federal government employee",
-#         2: "Employee of a private not-for-profit, tax-exempt, or charitable organization",
-#         0: "Not in universe (less than 16 years old/NILF who last worked more than 5 years ago or never worked)"
-#     }
-# )
-
 mar_col = ColumnToText(
     "MAR",
     short_description="marriage status",
@@ -230,36 +211,6 @@ mar_col = ColumnToText(
         2: "Widowed"
     }
 )
-
-# occp_col = ColumnToText(
-#     "OCCP",
-#     short_description="job type",
-#     value_map={
-#         k: "works as " + v for k, v in occp_dict.items()
-#     }
-# )
-
-# pobp_col = ColumnToText(
-#     "POBP",
-#     short_description="place of birth",
-#     value_map={
-#         k: "born in " + v for k, v in pobp_dict.items()
-#     }
-# )
-
-# relp_col = ColumnToText(
-#     "RELP",
-#     short_description="relationship to head of household",
-#     value_map={
-#         k: v + " of head of household" for k, v in relp_dict.items()
-#     }
-# )
-
-# wkhp_col = ColumnToText(
-#     "WKHP",
-#     short_description="hours worked per week",
-#     value_map=lambda x: f"works {x} hours per week"
-# )
 
 state_col = ColumnToText(
     "STATE",
@@ -391,101 +342,6 @@ employment_col = ColumnToText(
 )
 
 
-
-# acdhs_race_col = ColumnToText(
-#     "RACE",
-#     short_description="race",
-#     value_map={
-#         '1~White': "White",
-#         '2~Black/African American': "Black",
-#         '4~Asian': "Asian",
-#         '3~American Indian/Alaskan Native': "Native American",
-#         '7~Other Single Race': "Other (Single Race)",
-#         '5~Native Hawaiian/Pacific Islander': "Pacific Islander",
-#         '6~Two or More Races': "Two or More Races",
-#         '99~Unknown': "Unknown",
-#     },
-# )
-
-
-# acdhs_bh_ever_col = ColumnToText(
-#     "BH_DIAGNOSIS_EVER_DUMMY",
-#     short_description="indicator for any previous behavioral health diagnosis",
-#     value_map={
-#         0: "No",
-#         1: "Yes",
-#     },
-# )
-
-
-# acdhs_bh_inpatient_col = ColumnToText(
-#     "BH_INPATIENT_REHAB_DAYS_CT_3_YEARS",
-#     short_description="days spent in inpatient behavioral health rehabilitation in the last 3 years",
-#     value_map=lambda x: f"{int(x)} days",
-# )
-
-# acdhs_acj_months_col = ColumnToText(
-#     "ACJ_MONTHS_CT_3_YEARS",
-#     short_description="months spent in jail in the last three years",
-#     value_map=lambda x: f"{int(x)} months",
-# )
-
-# acdhs_court_all_col = ColumnToText(
-#     "COURT_ALL_CT_EVER",
-#     short_description="number of previous court appearances",
-#     value_map=lambda x: f"{int(x)}",
-# )
-
-# acdhs_probation_col = ColumnToText(
-#     "COURT_PROBATION_CT_2_YEARS",
-#     short_description="number of times on probation in the last two years",
-#     value_map=lambda x: f"{int(x)}",
-# )
-
-# acdhs_bh_count_col = ColumnToText(
-#     "BH_ALL_SERVICES_CT",
-#     short_description="number of behavioral health services previously received:",
-#     value_map=lambda x: f"{int(x)}",
-# )
-
-# acdhs_housing_count_col = ColumnToText(
-#     "HOUSING_ALL_SERVICES_CT",
-#     short_description="number of housing services previously received:",
-#     value_map=lambda x: f"{int(x)}",
-# )
-
-# acdhs_shelter_count_col = ColumnToText(
-#     "HOUS_SHELTER_EE_DAYS_1YR",
-#     short_description="number of days spent in homeless shelters in the last year:",
-#     value_map=lambda x: f"{int(x)}",
-# )
-
-# acdhs_jailstays_col = ColumnToText(
-#     "N_JAILSTAYS_LAST_YEAR",
-#     short_description="number of stays in jail in the last year:",
-#     value_map=lambda x: f"{int(x)}",
-# )
-
-# acdhs_out_da_count_col = ColumnToText(
-#     "BH_OUTPT_DRUG_ALC_DAYS_CT_EVER",
-#     short_description="number of days previously spent in outpatient drug and alcohol treatment:",
-#     value_map=lambda x: f"{int(x)}",
-# )
-
-# acdhs_bh_emergency_count_col = ColumnToText(
-#     "BH_EMEGCY_MNTL_CT_EVER",
-#     short_description="number of previous behavioral health emergency visits:",
-#     value_map=lambda x: f"{int(x)}",
-# )
-
-# acdhs_bh_inpatient_count_col = ColumnToText(
-#     "BH_INPT_MNTL_CT_EVER",
-#     short_description="number of previous behavioral health inpatient visits:",
-#     value_map=lambda x: f"{int(x)}",
-# )
-
-
-
 reentry_numeric_qa = DirectNumericQA(
     column='PUBCOV',
     text=(
@@ -502,80 +358,6 @@ reentry_qa = MultipleChoiceQA(
         Choice("No, they are not covered by public health insurance", 0),
     ),
 )
-
-# shelter_qa = MultipleChoiceQA(
-#     column='EMERG_SHLTR',
-#     text="Will this person use a homeless shelter in the next year?",
-#     choices=(
-#         Choice("Yes, they will use a homeless shelter in the next year", 1),
-#         Choice("No, they will not use a homeless shelter in the next year", 0),
-#     ),
-# )
-
-# shelter_numeric_qa = DirectNumericQA(
-#     column='ONE_YEAR_SHELTER',
-#     text=(
-#         "Will this person use a homeless shelter in the next year?"
-#     ),
-# )
-
-# mhip_qa = MultipleChoiceQA(
-#     column='MHIP',
-#     text="Will this person have inpatient mental health treatment in the next year?",
-#     choices=(
-#         Choice("Yes, they will have inpatient mental health treatment in the next year", 1),
-#         Choice("No, they will not have inpatient mental health treatment in the next year", 0),
-#     ),
-# )
-
-# mhip_numeric_qa = DirectNumericQA(
-#     column='MHIP',
-#     text=(
-#         "Will this person have inpatient mental health treatment in the next year?"
-#     ),
-# )
-
-# ed_qa = MultipleChoiceQA(
-#     column='FOUR_ER',
-#     text="Will this person have at least four emergency department visits in the next year?",
-#     choices=(
-#         Choice("Yes, they will have at least four emergency department visits in the next year", 1),
-#         Choice("No, they will not have at least four emergency department visits in the next year", 0),
-#     ),
-# )
-
-# ed_numeric_qa = DirectNumericQA(
-#     column='FOUR_ER',
-#     text=(
-#         "Will this person have at least four emergency department visits in the next year?"
-#     ),
-# )
-
-
-
-# reentry_outcome_col = ColumnToText(
-#     'JAIL',
-#     short_description="reentry within one year",
-#     question=reentry_qa,
-# )
-
-# shelter_outcome_col = ColumnToText(
-#     'EMERG_SHLTR',
-#     short_description="shelter useage within one year",
-#     question=shelter_qa,
-# )
-
-# invol_outcome_col = ColumnToText(
-#     'MHIP',
-#     short_description="inpatient mental health treatment within one year",
-#     question=mhip_qa,
-# )
-
-# mortality_outcome_col = ColumnToText(
-#     'FOUR_ER',
-#     short_description="at least four emergency department visits within one year",
-#     question=ed_qa,
-# )
 
 
 columns_map: dict[str, object] = {
@@ -599,51 +381,13 @@ reentry_task = TaskMetadata(
     direct_numeric_qa=reentry_numeric_qa,
 )
 
-# shelter_task = TaskMetadata(
-#     name="shelter prediction",
-#     description=TASK_DESCRIPTION,
-#     features=[x for x in columns_map.keys() if x not in all_outcomes],
-#     target='EMERG_SHLTR',
-#     cols_to_text=columns_map,
-#     sensitive_attribute=None,
-#     multiple_choice_qa=reentry_qa,
-#     direct_numeric_qa=reentry_numeric_qa,
-# )
-
-# mhip_task = TaskMetadata(
-#     name="mental health inpatient prediction",
-#     description=TASK_DESCRIPTION,
-#     features=[x for x in columns_map.keys() if x not in all_outcomes],
-#     target='MHIP',
-#     cols_to_text=columns_map,
-#     sensitive_attribute=None,
-#     multiple_choice_qa=mhip_qa,
-#     direct_numeric_qa=mhip_numeric_qa,
-# )
-
-# ed_task = TaskMetadata(
-#     name="emergency department prediction",
-#     description=TASK_DESCRIPTION,
-#     features=[x for x in columns_map.keys() if x not in all_outcomes],
-#     target='FOUR_ER',
-#     cols_to_text=columns_map,
-#     sensitive_attribute=None,
-#     multiple_choice_qa=ed_qa,
-#     direct_numeric_qa=ed_numeric_qa,
-# )
-
-# shelter_task.use_numeric_qa = False
-# reentry_task.use_numeric_qa = False
-# mhip_task.use_numeric_qa = False
-# ed_task.use_numeric_qa = False
-
 
 
 data = pd.read_csv("data/acspubcov.csv")
 data["PUBCOV"] = (data["PUBCOV"] * -1) + 2
 num_data = len(data)
 # we want to sample 10k
-subsampling = 50000 / num_data
+subsampling = 5000 / num_data
 
 reentry_dataset = Dataset(
     data=data,
@@ -664,21 +408,15 @@ all_tasks = {
 model_name = "openai/gpt-4o-mini"
 import os
 import json
-with open("secrets.txt", "r") as handle:
-    os.environ["OPENAI_API_KEY"] = json.load("secrets.txt")["open_ai_key"]
+with open("secrets.json", "r") as handle:
+    os.environ["OPENAI_API_KEY"] = json.load(handle)["open_ai_key"]
     
 for taskname in all_tasks:
     task, dataset = all_tasks[taskname]
-    llm_clf = WebAPILLMClassifier(model_name=model_name, task=task)
+    llm_clf = WebAPILLMClassifier(model_name=model_name, task=task, custom_prompt_prefix=TASK_DESCRIPTION)  
     llm_clf.set_inference_kwargs(batch_size=500)
     bench = Benchmark(llm_clf=llm_clf, dataset=dataset)
 
-    RESULTS_DIR = "acspubcov3"
+    RESULTS_DIR = "acspubcov"
     bench.run(results_root_dir=RESULTS_DIR)
 
-
-
-# llm_clf = WebAPILLMClassifier(model_name=model_name, task=shelter_task)
-# bench = Benchmark(llm_clf=llm_clf, dataset=shelter_dataset)
-# RESULTS_DIR = "res_shelter"
-# bench.run(results_root_dir=RESULTS_DIR)

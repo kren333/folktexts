@@ -26,8 +26,8 @@ task_name = "diabetes_readmission"
 data = pd.read_csv("data/diabetic_data.csv")
 data['readmitted'] = np.where(data['readmitted'] == '<30', 1, 0)
 num_data = len(data)
-# we want to sample 10k
-subsampling = (2000 / 0.95) / num_data
+# we want to sample 5k
+subsampling = 2000 / num_data
 # if too many nulls, don't use the col as a proxy
 null_thres = 0.7
 
@@ -764,7 +764,7 @@ if __name__ == "__main__":
 
     for taskname in all_tasks:
         task, dataset = all_tasks[taskname]
-        llm_clf = WebAPILLMClassifier(model_name=model_name, task=task)
+        llm_clf = WebAPILLMClassifier(model_name=model_name, task=task, custom_prompt_prefix=TASK_DESCRIPTION)  
         llm_clf.set_inference_kwargs(batch_size=500)
         bench = Benchmark(llm_clf=llm_clf, dataset=dataset)
 
