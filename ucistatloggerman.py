@@ -12,7 +12,8 @@ import os
 from ucimlrepo import fetch_ucirepo 
 import os
 import json
-os.environ["OPENAI_API_KEY"] = json.loads("secrets.txt")["open_ai_key"]
+with open("secrets.json", "r") as handle:
+    os.environ["OPENAI_API_KEY"] = json.load(handle)["open_ai_key"]
 
 descs = {144:"""This dataset classifies people described by a set of attributes as \
 good or bad credit risks in a classifier format. Please answer each question based on the information provided. \
@@ -370,7 +371,7 @@ all_tasks = {
 
 for taskname in all_tasks:
     task, dataset = all_tasks[taskname]
-    llm_clf = WebAPILLMClassifier(model_name=model_name, task=task)
+    llm_clf = WebAPILLMClassifier(model_name=model_name, task=task, custom_prompt_prefix=description)
     llm_clf.set_inference_kwargs(batch_size=500)
     bench = Benchmark(llm_clf=llm_clf, dataset=dataset)
     RESULTS_DIR = f"uci{name}"
