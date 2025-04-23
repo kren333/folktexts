@@ -21,6 +21,21 @@ from folktexts.benchmark import BenchmarkConfig, Benchmark
 from folktexts.dataset import Dataset
 
 
+continuous_vars = [
+    "Area",                 # Number of pixels within the boundaries of the rice grain
+    "Perimeter",            # Circumference calculated from the boundary pixels
+    "Major_Axis_Length",    # Length of the major axis of the ellipse fitting the grain
+    "Minor_Axis_Length",    # Length of the minor axis of the ellipse fitting the grain
+    "Eccentricity",         # Measure of how much the shape of the grain deviates from a circle
+    "Convex_Area",          # Number of pixels in the smallest convex polygon that encloses the grain
+    "Extent"                # Ratio of the area of the grain to the area of the bounding box
+]
+
+categorical_vars = [
+    "Class"  # Rice variety: 'Cammeo' or 'Osmancik'
+]
+
+
 TASK_DESCRIPTION = """\
 The following data contains morphological measurements of individual rice grains. \
 Each entry includes features such as area, perimeter, axis lengths, eccentricity, convex area, and extent, which describe the shape and geometry of the grain. \
