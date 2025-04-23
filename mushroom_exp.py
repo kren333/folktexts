@@ -31,8 +31,6 @@ from folktexts.dataset import Dataset
 # ]
 
 # continuous_vars = [
-#     # Add simulated continuous variable(s) here if any exist
-#     # e.g., 'cap_diameter' if you engineered one
 # ]
 
 
