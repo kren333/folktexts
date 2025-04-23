@@ -26,7 +26,7 @@ from folktexts.dataset import Dataset
 #     'PIK3R2', 'PIK3R3', 'PIK3R5', 'PIK3R6'
 # ]
 
-# continuous_vars = ['Age_at_diagnosis']  # round to integers
+# continuous_vars = ['Age_at_diagnosis']  
 
 
 TASK_DESCRIPTION = """\
