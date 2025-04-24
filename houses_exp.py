@@ -102,6 +102,7 @@ columns_map: dict[str, object] = {
 
 
 all_outcomes = ["median_house_value"]
+discretize_cols = ["median_income", "housing_median_age", "total_rooms", "total_bedrooms", "population", "households", "latitude", "longitude"]
 
 reentry_task = TaskMetadata(
     name="median house value classification",
@@ -140,7 +141,7 @@ os.environ["OPENAI_API_KEY"] = json.loads("secrets.txt")["open_ai_key"]
 
 for taskname in all_tasks:
     task, dataset = all_tasks[taskname]
-    llm_clf = WebAPILLMClassifier(model_name=model_name, task=task)
+    llm_clf = WebAPILLMClassifier(model_name=model_name, task=task, custom_prompt_prefix=TASK_DESCRIPTION)
     llm_clf.set_inference_kwargs(batch_size=500)
     bench = Benchmark(llm_clf=llm_clf, dataset=dataset)
 

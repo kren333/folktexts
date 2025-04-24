@@ -30,6 +30,7 @@ age_col      = ColumnToText("age",      "age in years",                       va
 slos_col     = ColumnToText("slos",     "days from study entry to discharge", value_map=num_to_text("d"))
 dtime_col    = ColumnToText("d.time",   "days of follow-up",                  value_map=num_to_text("d"))
 numco_col    = ColumnToText("num.co",   "number of comorbidities",            value_map=num_to_text())
+edu_col      = ColumnToText("edu",      "years of education",                 value_map=num_to_text("yr"))
 scoma_col    = ColumnToText("scoma",    "coma score day 3",                   value_map=num_to_text())
 charges_col  = ColumnToText("charges",  "hospital charges",                   value_map=num_to_text("USD"))
 totcst_col   = ColumnToText("totcst",   "total RCC cost",                     value_map=num_to_text("USD"))
@@ -57,6 +58,7 @@ ph_col       = ColumnToText("ph",       "arterial blood pH",                  va
 glucose_col  = ColumnToText("glucose",  "glucose",                            value_map=num_to_text("mg/dL"))
 bun_col      = ColumnToText("bun",      "blood urea nitrogen",                value_map=num_to_text("mg/dL"))
 urine_col    = ColumnToText("urine",    "urine output",                       value_map=num_to_text("mL"))
+adlp_col     = ColumnToText("adlp",     "ADL index (patient)",                value_map=num_to_text())
 adls_col     = ColumnToText("adls",     "ADL index (surrogate)",              value_map=num_to_text())
 adlsc_col    = ColumnToText("adlsc",    "imputed ADL calibrated",             value_map=num_to_text())
 
@@ -72,12 +74,10 @@ hospdead_col = ColumnToText("hospdead", "death in hospital",
 sex_col     = ColumnToText("sex",     "sex",                value_map=lambda x: x if pd.notna(x) else "unknown")
 dzgroup_col = ColumnToText("dzgroup", "disease subcategory",value_map=lambda x: x if pd.notna(x) else "unknown")
 dzclass_col = ColumnToText("dzclass", "disease category",   value_map=lambda x: x if pd.notna(x) else "unknown")
-edu_col     = ColumnToText("edu",     "years of education", value_map=num_to_text("yr"))
 income_col  = ColumnToText("income",  "income bracket",     value_map=lambda x: x if pd.notna(x) else "unknown")
 race_col    = ColumnToText("race",    "race",               value_map=lambda x: x if pd.notna(x) else "unknown")
 ca_col      = ColumnToText("ca",      "cancer status",      value_map=lambda x: x if pd.notna(x) else "unknown")
 dnr_col     = ColumnToText("dnr",     "DNR order status",   value_map=lambda x: x if pd.notna(x) else "unknown")
-adlp_col    = ColumnToText("adlp",    "ADL index (patient)",value_map=num_to_text())
 sfdm2_col   = ColumnToText("sfdm2",   "functional disability", value_map=lambda x: x if pd.notna(x) else "missing")
 
 
@@ -106,6 +106,8 @@ columns_map: dict[str, object] = {
 }
 
 all_outcomes = ["hospdead"]
+discretize_cols = ['age', 'slos', 'd.time', 'num.co', 'edu', 'scoma', 'charges', 'totcst', 'totmcst', 'avtisst', 'sps', 'aps', 'surv2m', 'surv6m', 'hday', 
+                   'prg2m', 'prg6m', 'dnrday', 'meanbp', 'wblc', 'hrt', 'resp', 'temp', 'pafi', 'alb', 'bili', 'crea', 'sod', 'ph', 'glucose', 'bun', 'urine', 'adlp', 'adls', 'adlsc']
 
 reentry_task = TaskMetadata(
     name="Hospital death prediction",
@@ -148,7 +150,7 @@ os.environ["OPENAI_API_KEY"] = json.loads("secrets.txt")["open_ai_key"]
 
 for taskname in all_tasks:
     task, dataset = all_tasks[taskname]
-    llm_clf = WebAPILLMClassifier(model_name=model_name, task=task)
+    llm_clf = WebAPILLMClassifier(model_name=model_name, task=task, custom_prompt_prefix=TASK_DESCRIPTION)
     llm_clf.set_inference_kwargs(batch_size=500)
     bench = Benchmark(llm_clf=llm_clf, dataset=dataset)
 

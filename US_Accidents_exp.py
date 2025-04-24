@@ -264,6 +264,8 @@ columns_map: dict[str, object] = {
 
 # all_outcomes = ['JAIL', 'FOUR_ER', 'EMERG_SHLTR', 'MHIP']
 all_outcomes = ["Severity"]
+discretize_cols = ['Start_Time', 'End_Time', 'Start_Lat', 'Start_Lng', 'Distance(mi)', 
+                   "Temperature(F)", "Wind_Chill(F)", "Humidity(%)", "Pressure(in)", "Visibility(mi)", "Wind_Speed(mph)", "Precipitation(in)"]
 
 reentry_task = TaskMetadata(
     name="severity prediction",
@@ -315,7 +317,7 @@ os.environ["OPENAI_API_KEY"] = json.loads("secrets.txt")["open_ai_key"]
 
 for taskname in all_tasks:
     task, dataset = all_tasks[taskname]
-    llm_clf = WebAPILLMClassifier(model_name=model_name, task=task)
+    llm_clf = WebAPILLMClassifier(model_name=model_name, task=task, custom_prompt_prefix=TASK_DESCRIPTION)
     llm_clf.set_inference_kwargs(batch_size=500)
     bench = Benchmark(llm_clf=llm_clf, dataset=dataset)
 

@@ -117,6 +117,7 @@ columns_map: dict[str, object] = {
 
 
 all_outcomes = ["acceptable"]
+discretize_cols = []
 
 reentry_task = TaskMetadata(
     name="car acceptability classification",
@@ -155,7 +156,7 @@ os.environ["OPENAI_API_KEY"] = json.loads("secrets.txt")["open_ai_key"]
 
 for taskname in all_tasks:
     task, dataset = all_tasks[taskname]
-    llm_clf = WebAPILLMClassifier(model_name=model_name, task=task)
+    llm_clf = WebAPILLMClassifier(model_name=model_name, task=task, custom_prompt_prefix=TASK_DESCRIPTION)
     llm_clf.set_inference_kwargs(batch_size=500)
     bench = Benchmark(llm_clf=llm_clf, dataset=dataset)
 
